@@ -1,0 +1,47 @@
+-- Dataset from Super Data Science, Section 3
+
+-- Total Issue Grouping by Product Name
+SELECT product_name, COUNT(ISSUE) as total_issue from consumercomplaints
+group by Product_Name
+ORDER BY total_issue DESC;
+
+-- Total Complaints Grouping by States
+SELECT State_Name, count(complaint_ID) as Total_Complaint_Per_State
+FROM consumercomplaints
+GROUP BY State_Name
+ORDER BY count(Complaint_ID) DESC;
+
+-- Number Complaints Were Received And Sent On The Same Day
+SELECT COUNT(complaint_ID) FROM consumercomplaints
+WHERE Date_Received = Date_Sent_to_Company;
+
+-- Number of Complaints Received in The States of New York
+SELECT * FROM consumercomplaints
+WHERE State_Name = 'NY'
+ORDER BY Date_Received;
+
+-- Number of Complaints Received in The States of New York & California
+SELECT * FROM consumercomplaints
+WHERE State_Name IN ('NY','CA')
+ORDER BY State_Name AND Date_Received;
+
+-- Extract All Rows With The Word "Credit" In The Product Field
+SELECT * FROM consumercomplaints
+WHERE Product_Name LIKE '%Credit%';
+
+-- Extract All Rows With The Word "Late" In The Issue Field
+SELECT * FROM consumercomplaints
+WHERE Issue like '%Late%';
+
+-- Number of Complaints With Closed Status
+SELECT Company, Product_Name, State_Name, Count(Company_Response_to_Consumer) AS Close_Response_to_Consumer
+FROM consumercomplaints
+WHERE Company_Response_to_Consumer = 'Closed'
+GROUP BY Company, Product_Name, State_Name
+ORDER BY Close_Response_to_Consumer DESC;
+
+-- Number of Complaints Grouping by Response Status
+SELECT Company_Response_to_Consumer, Count(Complaint_ID) AS Number_of_Complaints
+FROM consumercomplaints
+GROUP BY Company_Response_to_Consumer
+ORDER BY Number_of_Complaints;
